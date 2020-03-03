@@ -31,7 +31,7 @@ Route::post('/books-orm/{id}/edit', 'BookORMController@update');
 Route::get('/books-orm/{id}/delete', 'BookORMController@delete');
 
 
-
+Route::get('/books-qb', 'BookQueryBuilderController@index');
 
 
 
