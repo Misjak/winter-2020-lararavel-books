@@ -19,10 +19,22 @@ class ReviewController extends Controller
         // create a new review (make sure to attach it to the right Book)
         $review = new Review;
         $review->book_id = $book_id;
-        $review->name = $request->input('name');
-        $review->email = $request->input('email');
-        $review->review = $request->input('review');
+        $review->fill($request->only(['name', 'email', 'review']));
         $review->save();
+
+        // Review::create([
+        //     'book_id'   => $book_id,
+        //     'name'      => $request->input('name'),
+        //     'email'     => $request->input('email'),
+        //     'review'    => $request->input('review')
+        // ]);
+
+        // $review = new Review;
+        // $review->book_id = $book_id;
+        // $review->name = $request->input('name');
+        // $review->email = $request->input('email');
+        // $review->review = $request->input('review');
+        // $review->save();
 
         // send success message
         session()->flash('success_message', 'Review saved.');
