@@ -44,3 +44,6 @@ Route::post('/publishers', 'PublisherController@store');
 Route::get('/cart', 'CartController@index');
 Route::get('/cart/add/{book_id}', 'CartController@add');
 Route::post('/cart/add', 'CartController@postAdd');
+
+
+Route::post('/review/{book_id}', 'ReviewController@store');
