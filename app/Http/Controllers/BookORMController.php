@@ -18,9 +18,9 @@ class BookORMController extends Controller
     {
         $book = Book::findOrFail($id);
 
-        $publisher =  $book->publisher;
+        $publisher = $book->publisher;
 
-        $booksByPublisher = $publisher->books;
+        $booksByPublisher = $publisher ? $publisher->books : [];
 
 
         return view('books.show', compact('book'));
