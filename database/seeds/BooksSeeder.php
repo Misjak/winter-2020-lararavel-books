@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Book;
+use App\Publisher;
 
 class BooksSeeder extends Seeder
 {
@@ -22,18 +23,26 @@ class BooksSeeder extends Seeder
             true
         );
 
+        $publishers_by_name = Publisher::pluck('id', 'title')->toArray();
+var_dump($publishers_by_name); die();
         // put it into our database 
         foreach ($data as $book_data) {
+
+            if (!isset($publishers_by_name[$book_data['publisher']])) {
+                $publisher = new Publisher;
+                $publisher->title = $book_data['publisher'];
+                $publisher->save();
+
+                $publishers_by_name[$book_data['publisher']] = $publisher->id;
+            }
+
             $book = new Book;
-            $book->publisher_id = 0;
+            $book->publisher_id = $publishers_by_name[$book_data['publisher']];
             $book->fill([
                 'title' => $book_data['title'],
                 'authors' => $book_data['author'],
                 'image' => $book_data['image'],
             ]);
-            // $book->title    = $book_data['title'];
-            // $book->authors  = $book_data['author'];
-            // $book->image    = $book_data['image'];
             $book->save();
         }
     }
