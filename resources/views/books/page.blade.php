@@ -30,7 +30,11 @@
 
         <div class="book" style="margin-bottom: 1em">
             <h2>{{ $book->title }}</h2>
-            By {{ $book->authors }}
+            By {{ $book->authors }}<br>
+            
+            @if ($book->publisher)
+                Published by {{ $book->publisher->title }}
+            @endif
         </div>
 
     @endforeach

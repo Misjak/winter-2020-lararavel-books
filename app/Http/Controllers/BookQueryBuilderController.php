@@ -28,7 +28,9 @@ class BookQueryBuilderController extends Controller
 
         $books = Book::query()
             ->orderBy('title', 'asc')
-            ->paginate(10);
+            ->with('publisher')
+            ->with('reviews')
+            ->paginate(100);
 
         return view('books.page', compact('books'));
     }

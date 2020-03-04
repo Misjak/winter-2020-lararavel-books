@@ -29,14 +29,15 @@ class BooksSeeder extends Seeder
         // put it into our database 
         foreach ($data as $book_data) {
 
-            if (!isset($publishers_by_name[$book_data['publisher']])) {
+            if (!isset($publishers_by_name[  $book_data['publisher']  ])) {
                 $publisher = new Publisher;
                 $publisher->title = $book_data['publisher'];
                 $publisher->save();
 
-                $publishers_by_name[$book_data['publisher']] = $publisher->id;
+                $publishers_by_name[  $book_data['publisher']  ] = $publisher->id;
             }
-
+            // here I can be sure that there exists $publishers_by_name[  $book_data['publisher']  ]
+            
             $book = new Book;
             $book->publisher_id = $publishers_by_name[$book_data['publisher']];
             $book->fill([
