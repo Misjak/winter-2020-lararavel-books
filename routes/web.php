@@ -46,7 +46,9 @@ Route::get('/cart/add/{book_id}', 'CartController@add');
 Route::post('/cart/add', 'CartController@postAdd');
 
 
-Route::post('/review/{book_id}', 'ReviewController@store');
+Route::post('/review/{book_id}', 'ReviewController@store')->middleware('auth');
+Route::delete('/review/{id}', 'ReviewController@delete')->middleware('can:admin')->name('review.delete');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

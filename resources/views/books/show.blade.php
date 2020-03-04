@@ -12,46 +12,70 @@
     </div>
 </div>
 
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<div class="review-form">
 
-@if(Session::has('success_message'))
-    <div class="alert alert-success">
-        {{ Session::get('success_message') }}
-    </div>
-@endif
+    @auth
 
-<form action="{{ action('ReviewController@store', $book->id) }}" method="post">
-    @csrf
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <input type="text" name="name" value="{{ old('name') }}" placeholder="Your name"><br>
-    <br>
+        @if(Session::has('success_message'))
+            <div class="alert alert-success">
+                {{ Session::get('success_message') }}
+            </div>
+        @endif
 
-    <input type="email" name="email" value="{{ old('email') }}" placeholder="Your email address"><br>
-    <br>
+        <form action="{{ action('ReviewController@store', $book->id) }}" method="post">
+            @csrf
 
-    <textarea name="review" cols="30" rows="10" placeholder="Write your review here">{{ old('review') }}</textarea><br>
-    <br>
+            <input type="text" name="name" disabled value="{{ Auth::user()->name }}" placeholder="Your name"><br>
+            <br>
 
-    <input type="submit" value="Submit review">
+            <input type="email" name="email" disabled value="{{ Auth::user()->email }}" placeholder="Your email address"><br>
+            <br>
 
-</form>
+            <textarea name="review" cols="30" rows="10" placeholder="Write your review here">{{ old('review') }}</textarea><br>
+            <br>
+
+            <input type="submit" value="Submit review">
+
+        </form>
+
+    @endauth
+
+    @guest
+
+        <h2>Please <a href="{{ route('login') }}">login</a> to leave reviews</h2>
+        
+    @endguest
+
+</div>
 
 <h2>Reviews:</h2>
 
 @foreach ($book->reviews as $review)
 
     <div class="review">
-        <strong>{{ $review->name }}</strong><br>
+        <strong>{{ $review->user->name }}</strong><br>
         <br>
         <pre>{{ $review->review }}</pre>
+
+        @can('admin')
+
+            <form action="{{ action('ReviewController@delete', $review->id) }}" method="post">
+                @method('delete')
+                @csrf
+                <input type="submit" value="delete">
+            </form>
+            
+        @endcan
     </div>
 
 @endforeach

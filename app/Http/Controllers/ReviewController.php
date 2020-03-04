@@ -11,15 +11,16 @@ class ReviewController extends Controller
     {
         // validate the request
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
+            // 'name' => 'required',
+            // 'email' => 'required|email',
             'review' => 'required|max:255'
         ]);
 
         // create a new review (make sure to attach it to the right Book)
         $review = new Review;
         $review->book_id = $book_id;
-        $review->fill($request->only(['name', 'email', 'review']));
+        $review->user_id = auth()->id();
+        $review->fill($request->only(['review']));
         $review->save();
 
         // Review::create([
@@ -41,5 +42,16 @@ class ReviewController extends Controller
 
         // redirect
         return redirect()->action('BookORMController@show', $book_id);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $review = Review::findOrFail($id);
+
+        $review->delete();
+
+        session()->flash('success_message', 'Review deleted');
+
+        return redirect()->back();
     }
 }
