@@ -14,6 +14,7 @@ class BooksSeeder extends Seeder
     public function run()
     {
         DB::statement('TRUNCATE TABLE books');
+        DB::statement('TRUNCATE TABLE publishers');
 
         // take data from the JSON file
         $source_file = storage_path('books.json');
@@ -24,7 +25,7 @@ class BooksSeeder extends Seeder
         );
 
         $publishers_by_name = Publisher::pluck('id', 'title')->toArray();
-var_dump($publishers_by_name); die();
+
         // put it into our database 
         foreach ($data as $book_data) {
 
