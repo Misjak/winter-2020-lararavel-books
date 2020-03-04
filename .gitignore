@@ -11,6 +11,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+<<<<<<< HEAD
 .editorconfig
 .gitattributes
 .styleci.yml
+=======
+>>>>>>> 6e579a2d838fe97802ecfc66abd5bc5c5c754ba1
