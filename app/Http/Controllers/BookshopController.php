@@ -47,10 +47,26 @@ class BookshopController extends Controller
     {
         $bookshop = Bookshop::findOrFail($id);
         $book = $request->input('book');
+        $count = $request->input('count');
 
-//        if($bookshop->books()->find($book) === null){
-            $bookshop->books()->attach($book);
-//        }
+        if($bookshop->books()->find($book) === null){
+            $bookshop->books()->attach($book, ['count' => $count]);
+        }else{
+//            $bookshop->books()->detach($book);
+//            $bookshop->books()->attach($book, $c['count' => $count]);
+
+//            next two lines handle the situation when we don't want
+//            to override previous value but modify it
+//            f.e. by incrementing by some number...
+
+//            $oldCount = $bookshop->books()->find($book)->pivot->count;
+//            $count = $oldCount + $count;
+
+            $bookshop->books()
+                ->updateExistingPivot($book, ['count' => $count]);
+        }
+
+
 
 //        previous block of code can be replaced by:
 //        $bookshop->books()->syncWithoutDetaching($book);
