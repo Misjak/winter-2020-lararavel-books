@@ -13,6 +13,11 @@
 </div>
 
 <h2>Bookshops:</h2>
+@foreach($book->bookshops as $bookshop)
+    <div>
+        {{ $bookshop->name  }}
+    </div>
+@endforeach
 
 <div class="review-form">
 
