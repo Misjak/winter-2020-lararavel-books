@@ -15,5 +15,18 @@
             </select>
             <button type="submit">Add</button>
         </form>
+
+        @foreach($bookshop->books as $book)
+            <div style="display:flex">
+                <h4>{{ $book->title }}</h4>
+                <form action="{{ action('BookshopController@removeBook', [$bookshop->id]) }}"
+                      method="post">
+                    @csrf
+                    <input type="hidden" name="book" value="{{ $book->id }}">
+                    <button type="submit">Remove</button>
+                </form>
+
+            </div>
+        @endforeach
     </div>
 @endsection

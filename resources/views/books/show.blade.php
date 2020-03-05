@@ -5,12 +5,14 @@
     <div>
         <h1>{{ $book->title }}</h1>
         <p>{{ $book->authors }}</p>
-        <p>Published by: {{ $book->publisher }}</p>
+        <p>Published by: {{ $book->publisher->title }}</p>
         <a href="{{ action('BookORMController@index') }}">
             Back to index
         </a>
     </div>
 </div>
+
+<h2>Bookshops:</h2>
 
 <div class="review-form">
 
@@ -53,7 +55,7 @@
     @guest
 
         <h2>Please <a href="{{ route('login') }}">login</a> to leave reviews</h2>
-        
+
     @endguest
 
 </div>
@@ -74,7 +76,7 @@
                 @csrf
                 <input type="submit" value="delete">
             </form>
-            
+
         @endcan
     </div>
 

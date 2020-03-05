@@ -45,30 +45,36 @@ class BookshopController extends Controller
     public function addBook(Request $request, $id)
     {
         $bookshop = Bookshop::findOrFail($id);
-
         $book = $request->input('book');
 
-        $bookshop->books()->attach($book);
+        if($bookshop->books()->find($book) === null){
+            $bookshop->books()->attach($book);
+        }
+
+//        previous block of code can be replaced by:
+//        $bookshop->books()->syncWithoutDetaching($book);
+
+        return redirect()->back();
 
 //        following lines are equal:
 //        return $bookshop->books;
 //        return $bookshop->books()->get();
 
-//        Book::where('id', '<', 5)->get();
+//        second syntax is neccessary if we want to f.e. some conditions
+//        return $bookshop->books()->where('id','<', 5)->get();
 
 //        to return SQL query - for debug purposes
-        return $bookshop->books()->where('id','<', 5)->toSql();
-
-        return $bookshop->books()->where('id','<', 5)->get();
-
+//        return $bookshop->books()->where('id', '<', 5)->toSql();
+    }
 
 
-//        $bookshop->attach($book);
+    public function removeBook(Request $request, $id){
+        $bookshop = Bookshop::findOrFail($id);
+        $book = $request->input('book');
 
+        $bookshop->books()->detach($book);
 
-
-
-        return $request;
+        return redirect()->back();
     }
 }
 
