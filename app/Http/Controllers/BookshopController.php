@@ -37,6 +37,7 @@ class BookshopController extends Controller
     public function show($id)
     {
         $bookshop = Bookshop::findOrFail($id);
+
         $books    = Book::all();
         return view('bookshops.show', compact('bookshop', 'books'));
     }
@@ -47,9 +48,9 @@ class BookshopController extends Controller
         $bookshop = Bookshop::findOrFail($id);
         $book = $request->input('book');
 
-        if($bookshop->books()->find($book) === null){
+//        if($bookshop->books()->find($book) === null){
             $bookshop->books()->attach($book);
-        }
+//        }
 
 //        previous block of code can be replaced by:
 //        $bookshop->books()->syncWithoutDetaching($book);

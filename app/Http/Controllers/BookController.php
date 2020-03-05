@@ -9,6 +9,7 @@ class BookController extends Controller
     public function index()
     {
 
+        return null;
         $name    = 'Slavo';
         $surname = "Kozar";
 

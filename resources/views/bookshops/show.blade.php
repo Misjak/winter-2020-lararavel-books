@@ -13,12 +13,14 @@
                     <option value="{{ $book->id }}">{{ $book->title }}</option>
                 @endforeach
             </select>
+            <input type="number" name="count" value="0">
             <button type="submit">Add</button>
         </form>
 
         @foreach($bookshop->books as $book)
             <div style="display:flex">
                 <h4>{{ $book->title }}</h4>
+                <h5>({{$book->pivot->count}} pcs.)</h5>
                 <form action="{{ action('BookshopController@removeBook', [$bookshop->id]) }}"
                       method="post">
                     @csrf
