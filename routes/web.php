@@ -52,3 +52,12 @@ Route::delete('/review/{id}', 'ReviewController@delete')->middleware('can:admin'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/bookshops', 'BookshopController@index');
+Route::get('/bookshops/create', 'BookshopController@create');
+Route::post('/bookshops', 'BookshopController@store');
+
+Route::get('/bookshops/{id}', 'BookshopController@show');
+
+Route::post('/bookshops/{id}/add-book', 'BookshopController@addBook');
+

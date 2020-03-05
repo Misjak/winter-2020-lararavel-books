@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Review;
 
 class Book extends Model
 {
@@ -17,4 +16,13 @@ class Book extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+
+    public function bookshops()
+    {
+        return $this->belongsToMany(Bookshop::class);
+    }
+
+
+
 }

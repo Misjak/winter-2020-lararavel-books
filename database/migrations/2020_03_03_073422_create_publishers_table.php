@@ -13,11 +13,11 @@ class CreatePublishersTable extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->timestamps();
-        });
+//        Schema::create('publishers', function (Blueprint $table) {
+//            $table->bigIncrements('id');
+//            $table->string('title');
+//            $table->timestamps();
+//        });
     }
 
     /**

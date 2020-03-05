@@ -13,9 +13,9 @@ class AddPublisherIdColumnToBooksTable extends Migration
      */
     public function up()
     {
-        Schema::table('books', function (Blueprint $table) {
-            $table->unsignedBigInteger('publisher_id')->after('id');
-        });
+//        Schema::table('books', function (Blueprint $table) {
+//            $table->unsignedBigInteger('publisher_id')->after('id');
+//        });
     }
 
     /**
